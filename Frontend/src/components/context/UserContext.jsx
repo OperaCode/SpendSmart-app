@@ -1,9 +1,12 @@
 
 import React, { createContext, useEffect, useState } from 'react'
+import axios from 'axios';
 
 
 export const UserContext = createContext();
 const savedUser = localStorage.getItem("user");
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const UserProvider = ({children}) => {  
   const [user, setUser] = useState(null);
@@ -13,7 +16,8 @@ const UserProvider = ({children}) => {
       try {
         const userId = localStorage.getItem("userId"); // Assuming you store userId in local storage
         if (userId) {
-          const response = await axios.get(`http://localhost:5000/api/user/${userId}`);
+          const response = await axios.get(`${BASE_URL}/user/get-user`);
+          console.log(response.data)
           setUser(response.data);
         }
       } catch (error) {
