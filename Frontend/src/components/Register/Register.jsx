@@ -4,9 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 import { toast } from "react-toastify";
 import axios from "axios";
-
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import PasswordInput from "../Layouts/PasswordInput";
+import { toast } from "react-toastify";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -62,7 +61,7 @@ const Register = () => {
       }
 
       const response = await axios.post(
-       "http://localhost:3000/user/register",
+       `${BASE_URL}/user/register`,
         formData,
         { withCredentials: true }
       );
@@ -209,6 +208,7 @@ const Register = () => {
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   onPaste={handlePastePassword}
+                  disabled={isSubmitting}
                 />
               </div>
 
