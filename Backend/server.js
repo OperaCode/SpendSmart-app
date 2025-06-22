@@ -8,7 +8,6 @@ const userRoute = require("./route/userRoute");
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const errorHandler = require("./middleware/errorMiddleware");
-const { limiter } = require("./controller/userController");
 
 const PORT =  3000;
 
@@ -16,6 +15,7 @@ const PORT =  3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 // CORS configuration
 app.use(cors({
@@ -25,8 +25,8 @@ app.use(cors({
   optionsSuccessStatus: 200,
 }));
 
-// Apply rate limiter
-app.use(limiter);
+app.use("/expense", expenseRoute); 
+app.use("/user", userRoute); 
 
 // Routes
 app.use("/expense", expenseRoute);
