@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
