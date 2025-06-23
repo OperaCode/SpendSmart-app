@@ -9,25 +9,44 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const DashLayout = ({children}) => {
-  const [user, setUser] = useState("Guest")
+  const [user, setUser] = useState("")
+
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await axios.get(`${BASE_URL}/user/get-user`, { withCredentials: true });
+  //       const data = response.data;
+
+  //       console.log({data})
+
+  //       setUser(data);
+  //     } catch (error) {
+  //       console.log("Error fetching user:", error);
+  //     }
+  //   };
+
+  //   fetchUser();
+  // }, []);
+ 
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/user/get-user`, { withCredentials: true });
-        const data = response.data;
-
-        console.log({data})
-
-        setUser(data);
+        const userId = localStorage.getItem("userId"); // Assuming you store userId in local storage
+        console.log()
+        if (userId) {
+          const response = await axios.get(`${BASE_URL}/user/get-user`, { withCredentials: true });
+          // console.log(response.data)
+          setUser(response.data);
+        }
       } catch (error) {
-        console.log("Error fetching user:", error);
+        console.error("Error fetching user:", error);
       }
     };
 
     fetchUser();
   }, []);
- 
+
   
   return (
     <div className="lg:flex items-cent bg-indigo-600 p-1 ">
@@ -38,7 +57,8 @@ const DashLayout = ({children}) => {
         {/* Navbar */}
         <div className="flex items-center justify-end gap-4 p-2">
           <h1 className="text-2xl md:text-3xl font-bold text-white">
-          Welcome, {user.firstName}!
+          {/* Welcome, {user.firstName}! */}
+          Welcome, {user.firstName }!
           </h1>
           <div className="w-12 h-12">
             <Link to='/dashboard'>

@@ -6,6 +6,7 @@ import AddExpenseModal from "../Modals/AddExpenseModal";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import axios from "axios";
+import BarChart from "../Layouts/BarChart";
 
 const override = {
   display: "block",
@@ -80,30 +81,34 @@ const HomeDash = () => {
 
   return (
     <section className="lg:flex lg:flex-col bg-indigo-600 p-4 lg:gap-6 rounded-xl shadow-inner font-bodyFont">
-      <div className="md:flex justify-between items-start w-full gap-6">
-        {/* Left Column */}
-        <div className="flex-1 space-y-6">
-          {/* Current Balance */}
-          <div>
-            <h1 className="text-white font-semibold text-3xl mb-3">
-              Current Balance:
-            </h1>
-            <div className="p-5 bg-white rounded-xl shadow-sm w-full md:w-2/3">
-              <p className="text-gray-500 text-sm">Total Expenses</p>
-              <h2 className="text-3xl font-bold text-gray-800 mt-1">
-                $
-                {totalExpenses.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
-              </h2>
-            </div>
+      <div className=" w-full gap-6">
+        {/* Current Balance */}
+        <div className="p-3">
+          <h1 className="text-white font-semibold text-2xl mb-3">
+            Current Balance:
+          </h1>
+          <div className="p-3 bg-white rounded-xl shadow-sm w-full md:w-2/3">
+            <p className="text-gray-500 text-sm">Total Expenses</p>
+            <h2 className="text-2xl font-bold text-gray-800 mt-1">
+              $
+              {totalExpenses.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </h2>
           </div>
+        </div>
 
           {/* Expense Breakdown */}
-          <div>
-            <h1 className="text-white font-semibold text-3xl mb-4">Expenses</h1>
-            <div className="bg-white rounded-xl shadow-sm p-5 space-y-4">
+        <div className="p-2">
+          <h1 className="text-white font-semibold text-2xl mb-3">Expenses</h1>
+
+          {/* Expense Card */}
+          <div className="bg-white rounded-xl shadow-sm p-5 gap-6 flex  items-stretch justify-center">
+
+            {/* Left Column - Categories Section */}
+            <div className="flex-1 bor m-auto">
+            <h1 className=" font-semibold text-xl mb-3 text-center">My Expenses Categories</h1>
               {[
                 {
                   label: "Foods and Groceries",
@@ -125,7 +130,7 @@ const HomeDash = () => {
                   <p className="text-base font-medium text-gray-700">
                     {item.label}
                   </p>
-                  <div className="bg-gray-100 px-4 py-2 rounded-md text-right">
+                  <div className="bg-gray-100 text-center w-1/4">
                     <p className="text-xs text-gray-500">Total</p>
                     <p className="text-sm font-semibold text-gray-700">
                       $
@@ -138,7 +143,9 @@ const HomeDash = () => {
                 </div>
               ))}
 
-              <div className="w-full pt-2">
+
+              {/* Add expense Button */}
+              <div className="w-1/3 m-auto">
                 <button
                   onClick={openModal}
                   className="bg-indigo-700 w-full flex items-center justify-center gap-2 text-white text-sm font-medium py-3 rounded-lg hover:bg-indigo-900 transition"
@@ -147,12 +154,13 @@ const HomeDash = () => {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Right Column - Graph */}
-        <div className="flex-1 mt-10 md:mt-0">
-          <Graph />
+            {/* Right Column - Graph */}
+            <div className="flex-1 bor ">
+              {/* <Graph /> */}
+              <BarChart/>
+            </div>
+          </div>
         </div>
       </div>
 

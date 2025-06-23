@@ -16,8 +16,8 @@ const UserProvider = ({children}) => {
       try {
         const userId = localStorage.getItem("userId"); // Assuming you store userId in local storage
         if (userId) {
-          const response = await axios.get(`${BASE_URL}/user/get-user`);
-          console.log(response.data)
+          const response = await axios.get(`${BASE_URL}/user/get-user`, { withCredentials: true });
+          // console.log(response.data)
           setUser(response.data);
         }
       } catch (error) {
