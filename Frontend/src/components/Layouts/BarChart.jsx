@@ -9,31 +9,59 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-// import { ThemeContext } from "../context/ThemeContext"; // Import theme context
 
 // Register Chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const BarChart = ({billers}) => {
-//   const { theme } = useContext(ThemeContext); // Get current theme
-  //  const [billers, setBillers] = useState([]);
+const BarChart = ({ transactions }) => {
+  const totalFoodGroceries = Array.isArray(transactions)
+    ? transactions
+        .filter((transaction) => transaction.category === "Food and groceries")
+        .reduce((acc, transaction) => acc + (transaction.amount || 0), 0)
+    : 0;
+  const totalUtilities = Array.isArray(transactions)
+    ? transactions
+        .filter((transaction) => transaction.category === "Utilities")
+        .reduce((acc, transaction) => acc + (transaction.amount || 0), 0)
+    : 0;
 
- 
+  const totalTransportation = Array.isArray(transactions)
+    ? transactions
+        .filter((transaction) => transaction.category === "Transportation")
+        .reduce((acc, transaction) => acc + (transaction.amount || 0), 0)
+    : 0;
 
-  // Extract labels (biller names) and values (totalAmountPaid)
-//   const labels = billers.map((biller) => biller.name);
-//   const dataValues = billers.map((biller) => biller.totalAmountPaid);
+  const categories = [
+    {
+      label: "Foods and Groceries",
+      total: totalFoodGroceries,
+    },
+    {
+      label: "Utilities",
+      total: totalUtilities,
+    },
+    {
+      label: "Transportation",
+      total: totalTransportation,
+    },
+  ];
 
-  // Define colors based on theme
-//   const textColor = theme === "dark" ? "#ffffff" : "#000000"; // White in dark mode, black in light mode
-//   const gridColor = theme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)";
+  const labels = categories.map((v) => v.label);
+  const dataValues = categories.map((v) => v.total);
 
   const data = {
-    // labels,
+    labels,
     datasets: [
       {
-        label: "Total Amount Paid ($)",
-        // data: dataValues,
+        label: "Total Expenses Recorded ($)",
+        data: dataValues,
         backgroundColor: [
           "rgba(255, 99, 132, 0.5)",
           "rgba(255, 159, 64, 0.5)",
@@ -63,27 +91,24 @@ const BarChart = ({billers}) => {
       legend: {
         display: true,
         labels: {
-        //   color: textColor, // Adapt to theme
-          font: { size: 12, weight: "bold" },
+          font: { size: 10, weight: "bold" },
         },
       },
     },
     scales: {
       x: {
-        ticks: {font: { size: 12, weight: "bold" } },
-        // grid: { color: gridColor }, // Adjust grid color
+        ticks: { font: { size: 12, weight: "bold" } },
       },
       y: {
         beginAtZero: true,
-        ticks: {  font: { size: 12, weight: "bold" } },
-        // grid: { color: gridColor },
+        ticks: { font: { size: 12, weight: "bold" } },
       },
     },
   };
 
   return (
     <div className="m-auto rounded">
-      {/* <h2 className="font-bold text-xl p-2 text-center">Top Billers</h2> */}
+      <h2 className="font-bold text-xl text-center">My Spend Analytics</h2>
       <div className="flex justify-center ">
         <Bar data={data} options={options} />
       </div>

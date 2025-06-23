@@ -99,16 +99,17 @@ const HomeDash = () => {
           </div>
         </div>
 
-          {/* Expense Breakdown */}
+        {/* Expense Breakdown */}
         <div className="p-2">
           <h1 className="text-white font-semibold text-2xl mb-3">Expenses</h1>
 
           {/* Expense Card */}
           <div className="bg-white rounded-xl shadow-sm p-5 gap-6 flex  items-stretch justify-center">
-
             {/* Left Column - Categories Section */}
-            <div className="flex-1 bor m-auto">
-            <h1 className=" font-semibold text-xl mb-3 text-center">My Expenses Categories</h1>
+            <div className="flex-1 w-full m-auto border-r-4 items-stretch">
+              <h1 className=" font-semibold text-xl mb-8 text-center">
+                My Expenses Categories
+              </h1>
               {[
                 {
                   label: "Foods and Groceries",
@@ -143,7 +144,6 @@ const HomeDash = () => {
                 </div>
               ))}
 
-
               {/* Add expense Button */}
               <div className="w-1/3 m-auto">
                 <button
@@ -156,9 +156,9 @@ const HomeDash = () => {
             </div>
 
             {/* Right Column - Graph */}
-            <div className="flex-1 bor ">
+            <div className="flex-1 w-full border-l-4 ">
               {/* <Graph /> */}
-              <BarChart/>
+              <BarChart transactions={transactions} />
             </div>
           </div>
         </div>
