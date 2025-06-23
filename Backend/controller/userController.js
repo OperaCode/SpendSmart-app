@@ -114,6 +114,7 @@ const loginUser = asyncHandler(async (req, res) => {
 const getUser = asyncHandler(async (req, res) => {
   try {
     const userId = req.userId;
+    // console.log(userId)
     const user = await User.findById(userId);
 
     if (!user) {

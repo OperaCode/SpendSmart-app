@@ -25,8 +25,6 @@ app.use(cors({
   optionsSuccessStatus: 200,
 }));
 
-app.use("/expense", expenseRoute); 
-app.use("/user", userRoute); 
 
 // Routes
 app.use("/expense", expenseRoute);
@@ -35,7 +33,7 @@ app.use("/user", userRoute);
 
 
 // Connect to MongoDB and start the server
-connectDb(); // Ensure this connects the DB without duplicating logic
+connectDb(); 
 
 mongoose.connection.once("open", () => {
   console.log("Database connected");
